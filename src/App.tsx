@@ -35,7 +35,7 @@ function App() {
   return (
     <>
       <header>
-        <button onClick={() => setOpen(!open)}>open</button>
+        <button className="m-3 rounded-md bg-slate-500 text-white p-2 lg:hidden" onClick={() => setOpen(!open)}>Темы</button>
         {open && (
           <div className="">
             {themes.map((item, i) => (
