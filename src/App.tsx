@@ -5,7 +5,7 @@ import axios from "axios";
 type Phrase = {
   id: number;
   rus: string;
-  ing: string; 
+  ing: string;
   trscp: string;
 };
 
@@ -35,7 +35,12 @@ function App() {
   return (
     <>
       <header>
-        <button className="m-3 rounded-md bg-slate-500 text-white p-2 lg:hidden" onClick={() => setOpen(!open)}>Темы</button>
+        <button
+          className="m-3 rounded-md bg-slate-500 text-white p-2 lg:hidden"
+          onClick={() => setOpen(!open)}
+        >
+          Темы
+        </button>
         {open && (
           <div className="absolute w-full bg-white">
             {themes.map((item, i) => (
