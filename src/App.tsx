@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Themes } from "./theme";
 import axios from "axios";
+import { PhraseBlock } from "./components/PhraseBlock";
+import { Header } from "./components/Header";
 
 type Phrase = {
   id: number;
@@ -11,6 +13,7 @@ type Phrase = {
 
 function App() {
   const [theme, setTheme] = useState("ПРИВЕТСТВИЕ");
+  const [activeId, setActiveId] = useState(0);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [phrases, setPhrases] = useState<Phrase[]>();
@@ -34,13 +37,16 @@ function App() {
   }, [theme]);
   return (
     <>
-      <header>
-        <button
-          className="m-3 rounded-md bg-slate-500 text-white p-2 lg:hidden"
-          onClick={() => setOpen(!open)}
-        >
-          Темы
-        </button>
+      <Header />
+      <div>
+        {!open && (
+          <button
+            className=" bg-slate-500 text-white w-full p-2 lg:hidden text-xl"
+            onClick={() => setOpen(!open)}
+          >
+            Выберите тему
+          </button>
+        )}
         {open && (
           <div className="absolute w-full bg-white">
             {themes.map((item, i) => (
@@ -50,14 +56,16 @@ function App() {
                   setTheme(item);
                   setOpen(false);
                 }}
-                className="pl-5 font-semibold cursor-pointer hover:bg-zinc-200 max-h-14 min-h-8 h-min  w-full max-w-xs flex items-center"
+                className="pl-5 font-semibold cursor-pointer hover:bg-zinc-200 max-h-14 min-h-10 h-min  w-full flex items-center border-b"
               >
-                {item}
+                <span className="first-letter:uppercase lowercase text-lg">
+                  {item}
+                </span>
               </div>
             ))}
           </div>
         )}
-      </header>
+      </div>
 
       <div className="flex">
         <div className="hidden lg:w-1/4 lg:block">
@@ -76,18 +84,14 @@ function App() {
         ) : (
           <div className="px-3 w-screen overscroll-x-none">
             {phrases?.map((item) => (
-              <div
+              <PhraseBlock
+                onClick={() => setActiveId(item.id)}
                 key={item.id}
-                className={
-                  item.id % 2 === 0
-                    ? "flex items-center gap-1 text-sm min-h-10 bg-slate-100"
-                    : "flex items-center gap-1 text-sm min-h-10"
-                }
-              >
-                <div className="w-1/3 lg:w-1/4">{item.rus}</div>
-                <div className="w-1/3 lg:w-1/4">{item.ing}</div>
-                <div className="w-1/3 lg:w-1/4">{item.trscp}</div>
-              </div>
+                rus={item.rus}
+                ing={item.ing}
+                trscp={item.trscp}
+                active={item.id === activeId}
+              />
             ))}
           </div>
         )}
