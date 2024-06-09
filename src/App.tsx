@@ -3,6 +3,8 @@ import { Themes } from "./theme";
 import axios from "axios";
 import { PhraseBlock } from "./components/PhraseBlock";
 import { Header } from "./components/Header";
+import "./App.css";
+import { Loader } from "./components/Loader";
 
 type Phrase = {
   id: number;
@@ -28,6 +30,7 @@ function App() {
         setPhrases(data);
         setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     };
@@ -39,14 +42,12 @@ function App() {
     <>
       <Header />
       <div>
-        {!open && (
-          <button
-            className=" bg-slate-500 text-white w-full p-2 lg:hidden text-xl"
-            onClick={() => setOpen(!open)}
-          >
-            Выберите тему
-          </button>
-        )}
+        <button
+          className=" bg-slate-500 text-white w-full p-2 lg:hidden text-xl"
+          onClick={() => setOpen(!open)}
+        >
+          Выберите тему
+        </button>
         {open && (
           <div className="absolute w-full bg-white">
             {themes.map((item, i) => (
@@ -58,7 +59,11 @@ function App() {
                 }}
                 className="pl-5 font-semibold cursor-pointer hover:bg-zinc-200 max-h-14 min-h-10 h-min  w-full flex items-center border-b"
               >
-                <span className="first-letter:uppercase lowercase text-lg">
+                <span
+                  className={`first-letter:uppercase lowercase text-lg ${
+                    item === theme ? "text-cyan-600" : ""
+                  }`}
+                >
                   {item}
                 </span>
               </div>
@@ -66,21 +71,26 @@ function App() {
           </div>
         )}
       </div>
-
       <div className="flex">
         <div className="hidden lg:w-1/4 lg:block">
           {themes.map((item, i) => (
             <div
               key={i}
               onClick={() => setTheme(item)}
-              className="pl-5 font-semibold cursor-pointer hover:bg-zinc-200 max-h-14 min-h-8 h-min  w-full max-w-xs flex items-center"
+              className="pl-5 font-semibold cursor-pointer hover:bg-zinc-200 max-h-20 min-h-8 h-min  w-full max-w-xs flex items-center border-b"
             >
-              {item}
+              <span
+                className={`first-letter:uppercase lowercase text-lg ${
+                  item === theme ? "text-cyan-600" : ""
+                }`}
+              >
+                {item}
+              </span>
             </div>
           ))}
         </div>
         {loading ? (
-          <h1>Loading...</h1>
+          <Loader />
         ) : (
           <div className="px-3 w-screen overscroll-x-none">
             {phrases?.map((item) => (

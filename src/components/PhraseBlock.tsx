@@ -1,4 +1,3 @@
-
 interface PhraseBlockProps {
   rus: string;
   ing: string;
@@ -7,9 +6,20 @@ interface PhraseBlockProps {
   onClick: () => void;
 }
 
-export const PhraseBlock = ({ rus, ing, trscp, active, onClick }: PhraseBlockProps) => {
+export const PhraseBlock = ({
+  rus,
+  ing,
+  trscp,
+  active,
+  onClick,
+}: PhraseBlockProps) => {
   return (
-    <div onClick={onClick} className="border-b-2 p-2 hover:bg-slate-100 transition-all">
+    <div
+      onClick={onClick}
+      className={`border-b-2 p-2 transition-all ${
+        active ? "" : "hover:bg-slate-100"
+      }`}
+    >
       <div className="flex justify-between  ">
         <span>{rus}</span>
         <img className="w-6 cursor-pointer" src="/sound.svg" alt="sound" />
