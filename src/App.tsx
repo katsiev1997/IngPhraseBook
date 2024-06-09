@@ -46,7 +46,8 @@ function App() {
           className=" bg-slate-500 text-white w-full p-2 lg:hidden text-xl"
           onClick={() => setOpen(!open)}
         >
-          Выберите тему
+          Тема:{" "}
+          <span className="first-letter:uppercase lowercase text-lg">{theme}</span>
         </button>
         {open && (
           <div className="absolute w-full bg-white">
