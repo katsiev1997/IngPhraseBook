@@ -97,6 +97,7 @@ function App() {
             {phrases?.map((item) => (
               <PhraseBlock
                 onClick={() => setActiveId(item.id)}
+                id={item.id}
                 key={item.id}
                 rus={item.rus}
                 ing={item.ing}
