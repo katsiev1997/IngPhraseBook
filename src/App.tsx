@@ -93,7 +93,7 @@ function App() {
         {loading ? (
           <Loader />
         ) : (
-          <div className="w-screen overscroll-x-none">
+          <div className="w-screen overscroll-x-none overflow-y-scroll">
             {phrases?.map((item) => (
               <PhraseBlock
                 onClick={() => setActiveId(item.id)}
